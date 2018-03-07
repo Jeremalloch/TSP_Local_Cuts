@@ -1,0 +1,101 @@
+#
+#   This file is part of CONCORDE
+#
+#   (c) Copyright 1995--1999 by David Applegate, Robert Bixby,
+#   Vasek Chvatal, and William Cook
+#
+#   Permission is granted for academic research use.  For other uses,
+#   contact the authors for licensing options.
+#
+#   Use at your own risk.  We make no guarantees about the
+#   correctness or usefulness of this code.
+#
+
+@SET_MAKE@
+SHELL = @MAKESHELL@
+SRCROOT = @top_srcdir@
+BLDROOT = ..
+CCINCDIR=$(SRCROOT)/INCLUDE
+
+srcdir = @srcdir@
+VPATH = @srcdir@
+
+CC = @CC@
+CFLAGS = @CFLAGS@ @CPPFLAGS@ -I$(BLDROOT)/INCLUDE -I$(CCINCDIR)
+LDFLAGS = @CFLAGS@ @LDFLAGS@
+LIBFLAGS = @LIBS@
+RANLIB = @RANLIB@
+
+OBJ_SUFFIX = @OBJ_SUFFIX@
+o = $(OBJ_SUFFIX)
+
+THISLIB=bmatch.@LIB_SUFFIX@
+LIBSRCS=bmatch.c christo.c bmatchjump.c bmatchpricing.c bmatchchk.c bmatchpseudo.c bmatchutil.c bmatchexpand.c bmatchancest.c bmatchheaps.c bmatchalloc.c
+ALLSRCS=bmatchmain.c bmatchgeom.c $(LIBSRCS)
+
+LIBS=$(BLDROOT)/EDGEGEN/edgegen.@LIB_SUFFIX@ $(BLDROOT)/KDTREE/kdtree.@LIB_SUFFIX@ \
+     $(BLDROOT)/FMATCH/fmatch.@LIB_SUFFIX@ $(BLDROOT)/LINKERN/linkern.@LIB_SUFFIX@ \
+     $(BLDROOT)/UTIL/util.@LIB_SUFFIX@
+
+all: bmatch $(THISLIB)
+
+everything: all
+
+bmatch: bmatchmain.$o $(THISLIB) $(LIBS)
+	$(CC) $(LDFLAGS) -o $@ bmatchmain.$o $(THISLIB) $(LIBS) $(LIBFLAGS)
+
+bmatchgeom: bmatchgeom.$o $(THISLIB) $(LIBS)
+	$(CC) $(LDFLAGS) -o $@ bmatchgeom.$o $(THISLIB) $(LIBS) $(LIBFLAGS)
+
+christo: christomain.$o $(THISLIB) $(LIBS)
+	$(CC) $(LDFLAGS) -o $@ christomain.$o $(THISLIB) $(LIBS) $(LIBFLAGS)
+
+clean:
+	-rm -f *.$o $(THISLIB) bmatch@EXE_SUFFIX@  bmatchgeom@EXE_SUFFIX@ christo@EXE_SUFFIX@
+
+OBJS=$(LIBSRCS:.c=.@OBJ_SUFFIX@)
+
+$(THISLIB): $(OBJS)
+	$(AR) $(ARFLAGS) $(THISLIB) $(OBJS)
+	$(RANLIB) $(THISLIB)
+
+.PHONY: $(BLDROOT)/concorde.@LIB_SUFFIX@
+$(BLDROOT)/concorde.@LIB_SUFFIX@: $(OBJS)
+	$(AR) $(ARFLAGS) $(BLDROOT)/concorde.@LIB_SUFFIX@ $(OBJS)
+	$(RANLIB) $(BLDROOT)/concorde.@LIB_SUFFIX@
+
+include ../INCLUDE/Makefile.common
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.
+
+I=$(CCINCDIR)
+I2=$(BLDROOT)/INCLUDE
+
+bmatchmain.$o: bmatchmain.c      $(I)/machdefs.h $(I2)/config.h  $(I)/bmatch.h \
+        $(I)/util.h     $(I)/kdtree.h   $(I)/edgegen.h  
+bmatchgeom.$o: bmatchgeom.c      $(I)/machdefs.h $(I2)/config.h  $(I)/bmatch.h \
+        $(I)/util.h     $(I)/kdtree.h   $(I)/edgegen.h  
+christomain.$o: christomain.c    $(I)/machdefs.h $(I2)/config.h  $(I)/bmatch.h \
+        $(I)/util.h     $(I)/kdtree.h   $(I)/edgegen.h  
+bmatch.$o:     bmatch.c          $(I)/machdefs.h $(I2)/config.h  $(I)/bmatch.h \
+        $(I)/util.h     $(I)/kdtree.h   $(I)/macrorus.h 
+christo.$o:    christo.c         $(I)/machdefs.h $(I2)/config.h  $(I)/bmatch.h \
+        $(I)/util.h     $(I)/kdtree.h   $(I)/macrorus.h 
+bmatchjump.$o: bmatchjump.c      $(I)/machdefs.h $(I2)/config.h  $(I)/bmatch.h \
+        $(I)/util.h     $(I)/kdtree.h   $(I)/macrorus.h 
+bmatchpricing.$o: bmatchpricing.c       $(I)/machdefs.h $(I2)/config.h         \
+        $(I)/bmatch.h   $(I)/util.h     $(I)/kdtree.h   $(I)/macrorus.h 
+bmatchchk.$o: bmatchchk.c        $(I)/machdefs.h $(I2)/config.h  $(I)/bmatch.h \
+        $(I)/util.h     $(I)/kdtree.h   $(I)/macrorus.h 
+bmatchpseudo.$o: bmatchpseudo.c         $(I)/machdefs.h $(I2)/config.h         \
+        $(I)/bmatch.h   $(I)/util.h     $(I)/kdtree.h   $(I)/macrorus.h 
+bmatchutil.$o: bmatchutil.c  $(I)/machdefs.h $(I2)/config.h  $(I)/bmatch.h     \
+        $(I)/util.h     $(I)/kdtree.h   $(I)/macrorus.h 
+bmatchexpand.$o: bmatchexpand.c  $(I)/machdefs.h $(I2)/config.h  $(I)/bmatch.h \
+        $(I)/util.h     $(I)/kdtree.h   $(I)/macrorus.h 
+bmatchancest.$o: bmatchancest.c  $(I)/machdefs.h $(I2)/config.h  $(I)/bmatch.h \
+        $(I)/util.h     $(I)/kdtree.h   $(I)/macrorus.h 
+bmatchheaps.$o: bmatchheaps.c    $(I)/machdefs.h $(I2)/config.h  $(I)/bmatch.h \
+        $(I)/util.h     $(I)/kdtree.h   $(I)/macrorus.h 
+bmatchalloc.$o: bmatchalloc.c    $(I)/machdefs.h $(I2)/config.h  $(I)/bmatch.h \
+        $(I)/util.h     $(I)/kdtree.h   $(I)/macrorus.h 
