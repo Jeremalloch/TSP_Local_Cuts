@@ -220,7 +220,11 @@
 # include <unistd.h>
 #endif
 #ifdef HAVE_MALLOC_H
+#if __APPLE__ && __MACH__
 # include <malloc/malloc.h>
+#else
+# include <malloc.h>
+#endif
 #endif
 #ifdef HAVE_SYS_TYPES_H
 # include <sys/types.h>
