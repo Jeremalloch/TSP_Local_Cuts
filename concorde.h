@@ -106,7 +106,7 @@
 #define HAVE_UNISTD_H 1
 
 /* Define if you have the <malloc.h> header file.  */
-#define HAVE_MALLOC_H 0
+#define HAVE_MALLOC_H 1
 
 /* Define if you have the <sys/types.h> header file.  */
 #define HAVE_SYS_TYPES_H 1

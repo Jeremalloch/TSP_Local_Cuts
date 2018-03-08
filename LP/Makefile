@@ -21,11 +21,11 @@ CCINCDIR=$(SRCROOT)/INCLUDE
 srcdir = .
 
 CC = gcc
-CFLAGS = -O3 -g -ansi -Wall -W -Wstrict-prototypes -Wpointer-arith -Wnested-externs -I$(BLDROOT)/INCLUDE -I$(CCINCDIR) 
+CFLAGS = -O3 -g -ansi -Wall -W -Wstrict-prototypes -Wpointer-arith -Wnested-externs -I$(BLDROOT)/INCLUDE -I$(CCINCDIR) -I/Applications/CPLEX_Studio128/cplex/include/ilcplex
 LDFLAGS = -O3 -g -framework IOKit -framework CoreFoundation
 LIBS = -lm 
 RANLIB = ranlib
-LPSOLVER_INTERFACE = lpnone.c
+LPSOLVER_INTERFACE = lpcplex12.c
 
 OBJ_SUFFIX = o
 o = $(OBJ_SUFFIX)

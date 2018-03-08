@@ -45,6 +45,7 @@
 #undef  CC_CPLEX_DISPLAY
 
 #define CC_ONE_ENV
+#define CPX_PARAM_FASTMIP 0
 
 #ifdef CC_ONE_ENV
 static CPXENVptr CClp_cplex_env = (CPXENVptr) NULL;
@@ -179,11 +180,11 @@ int CClp_init (CClp **lp)
     }
 #endif
 
-    rval = CPXsetintparam ((*lp)->cplex_env, CPX_PARAM_FASTMIP, 1);
-    if (rval) {
-        fprintf (stderr, "CPXsetintparam CPX_PARAM_FASTMIP failed\n");
-        goto CLEANUP;
-    }
+    /* rval = CPXsetintparam ((*lp)->cplex_env, CPX_PARAM_FASTMIP, 1); */
+    /* if (rval) { */
+    /*     fprintf (stderr, "CPXsetintparam CPX_PARAM_FASTMIP failed\n"); */
+    /*     goto CLEANUP; */
+    /* } */
 
     rval = CPXsetintparam ((*lp)->cplex_env, CPX_PARAM_ADVIND, 1);
     if (rval) {
@@ -1968,11 +1969,11 @@ static int set_parameters (CPXENVptr cplex_env, CClp_parameters *params)
         goto CLEANUP;
     }
 
-    rval = CPXsetintparam (cplex_env, CPX_PARAM_FASTMIP, params->fastmip);
-    if (rval) {
-        fprintf (stderr, "CPXsetintparam CPX_PARAM_FASTMIP failed\n");
-        goto CLEANUP;
-    }
+    /* rval = CPXsetintparam (cplex_env, CPX_PARAM_FASTMIP, params->fastmip); */
+    /* if (rval) { */
+    /*     fprintf (stderr, "CPXsetintparam CPX_PARAM_FASTMIP failed\n"); */
+    /*     goto CLEANUP; */
+    /* } */
     rval = CPXsetintparam (cplex_env, CPX_PARAM_ADVIND, params->advind);
     if (rval) {
         fprintf (stderr, "CPXsetintparam CPX_PARAM_ADVIND failed\n");

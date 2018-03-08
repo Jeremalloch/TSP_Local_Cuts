@@ -25,7 +25,7 @@ CFLAGS = -O3 -g -ansi -Wall -W -Wstrict-prototypes -Wpointer-arith -Wnested-exte
 LDFLAGS = -O3 -g -framework IOKit -framework CoreFoundation
 LIBFLAGS = -lm 
 RANLIB = ranlib
-LPSOLVER_LIB = 
+LPSOLVER_LIB = /Applications/CPLEX_Studio128/cplex/lib/x86-64_osx/static_pic/libcplex.a
 DOMINO_LIB = 
 
 OBJ_SUFFIX = o

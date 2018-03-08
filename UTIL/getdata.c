@@ -3248,13 +3248,13 @@ static int build_d2 (int *ncount, CCdatagroup *dat, CCrandstate *rstate,
         CC_IFFREE (hitcount, int);
     }
    
-/*  Print the point set
+ // Print the point set
     printf ("%d\n", *ncount);
     for (i = 0; i < *ncount; i++) {
         printf ("%d %d\n", (int) dat->x[i], (int) dat->y[i]);
 
     }
-*/
+
     return 0;
 }
 

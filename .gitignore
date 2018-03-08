@@ -50,3 +50,20 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Exclude all of the executables generated
+./LINKERN/linkern
+./EDGEGEN/edgegen
+./TSP/concorde
+./BMATCH/bmatch
+./LOCALCUT/localcut
+./CUT/mincut
+./FMATCH/fmatch
+
+# Exclude various concorde generated files
+TSP/*.x
+TSP/*.sol
+TSP/*.sav
+TSP/*.mas
+TSP/*.pul
+TSP/*.res
