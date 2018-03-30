@@ -1,0 +1,23 @@
+#! /bin/bash
+
+if ! [ -x ./concorde ]; then
+    echo Please run script in same directory as concorde executable
+    exit 1
+fi
+
+if [ ${#} -ne 2 ]; then
+    echo "Usage: ${0} <num_files_to_gen> <num_vertices>"
+    exit 1
+fi
+
+if ! [ -d ../../dataset/${2}_nodes/ ]; then
+    mkdir ../../dataset/${2}_nodes
+fi
+
+dirPath=../../dataset/${2}_nodes
+
+for (( seedNum=1; seedNum<=${1}; seedNum++ )); do
+    echo Generating with seed ${seedNum}
+    # Use B flag to ensure no branching
+    ./concorde -s${seedNum} -k${2} -B -X ${dirPath}/frac_edges_${seedNum} 2>/dev/null | egrep "^([0-9]|Random)" > ${dirPath}/seed_${seedNum};
+done
